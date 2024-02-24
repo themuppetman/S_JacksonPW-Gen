@@ -2,17 +2,18 @@
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function generatePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSymbols){
- 
-    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const numberChars = "0123456789";
-    const symbolChars = "!@#$%^&*()?<>+=";
+function writePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSymbols){
+    var password = writePassword("");
+    var passwordText = document.querySelector("#password");
+  
+    passwordText.value = password;
 
-    let allowedChars = "";
-    let password = "";
+    var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+    var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var numberChars = "0123456789";
+    var symbolChars = "!@#$%^&*()?<>+=";
 
-//Review Javascript Thoroughly 
+    var allowedChars = "";
 
     allowedChars += includeLowercase ? lowercaseChars : "";
     allowedChars += includeUppercase ? uppercaseChars : "";
@@ -29,27 +30,29 @@ function generatePassword(length, includeLowercase, includeUppercase, includeNum
     }
 
     for(let i = 0; i < length; i++){
-        const randomIndex = Math.floor(Math.random() * allowedChars.length);
+        var randomIndex = Math.floor(Math.random() * allowedChars.length);
         password += allowedChars[randomIndex];
     }
 
     return password;
 }
 
-const passwordLength = 12;
-const includeLowercase = true;
-const includeUppercase = true;
-const includeNumbers = true;
-const includeSymbols = true;
+var passwordLength = 12;
+var includeLowercase = true;
+var includeUppercase = true;
+var includeNumbers = true;
+var includeSymbols = true;
 
-const password = generatePassword(passwordLength,   
-                                  includeLowercase, 
-                                  includeUppercase,
-                                  includeNumbers,
-                                  includeSymbols); 
+var password = writePassword(passwordLength,   
+                               includeLowercase, 
+                               includeUppercase,
+                               includeNumbers,
+                               includeSymbols); 
 
 
-console.log("Generated password: {passowrd}");
+
+console.log("Write passord: {password}");
 
 // Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
