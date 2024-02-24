@@ -2,7 +2,7 @@
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function writePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSymbols) {
+function generatePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSymbols) {
  
     const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
     const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -12,32 +12,35 @@ function writePassword(length, includeLowercase, includeUppercase, includeNumber
     let allowedChars = "";
     let password = "";
 
-//Review string concatenate
+//Review Javascript Thoroughly 
 
     allowedChars += includeLowercase ? lowercaseChars : "";
     allowedChars += includeUppercase ? uppercaseChars : "";
     allowedChars += includeNumbers ? numberChars : "";
     allowedChars += includeSymbols ? symbolChars :"";
 
+    if(length <= 0){
+        return '(password length must be at least 1)';
+    }
+
     console.log(allowedChars);
 
     return '';
-
 }
 
 const passwordLength = 12;
 const includeLowercase = true;
-const includeUppercase = false;
-const includeNumbers = false;
-const includeSymbols =false;
+const includeUppercase = true;
+const includeNumbers = true;
+const includeSymbols = true;
 
-const password = writePassword(passwordLength,   
+const password = generatePassword(passwordLength,   
                                includeLowercase, 
                                includeUppercase,
                                includeNumbers,
                                includeSymbols);
 
-console.log('Written password: ${password}'); 
+
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);
