@@ -2,11 +2,15 @@
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function writePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSymbols){
-    var password = writePassword("");
+function writePassword() {
+    var password = "";
     var passwordText = document.querySelector("#password");
-  
-    passwordText.value = password;
+
+    var length = prompt("How long would you like your password to be?");
+    var includeLowercase = confirm("Would you like lowercase characters?");
+    var includeUppercase = confirm("Would you like uppercase characters?");
+    var includeNumbers = confirm("Would you like numbers?");
+    var includeSymbols = confirm("Would you like special characters?");
 
     var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
     var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -15,44 +19,55 @@ function writePassword(length, includeLowercase, includeUppercase, includeNumber
 
     var allowedChars = "";
 
+    // if(includeLowercase === true){
+    //     allowedChars = allowedChars + lowercaseChars
+    // }
+
     allowedChars += includeLowercase ? lowercaseChars : "";
     allowedChars += includeUppercase ? uppercaseChars : "";
     allowedChars += includeNumbers ? numberChars : "";
     allowedChars += includeSymbols ? symbolChars : "";
 
     console.log(allowedChars);
-                      
-    if(length <= 0){
-        return "(password length must be at least 1)";
+
+    if (length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return writePassword();
     }
-    if(allowedChars.length === 0){
-        return "(at least 1 set of characters needs to be selected)"
+    if (length > 128) {
+        alert("Password cannot be mor than 128 characters long.")
+        return writePassword();
+    }
+    if (allowedChars.length === 0) {
+        alert("At least 1 set of characters needs to be selected.");
+        return writePassword();
     }
 
-    for(let i = 0; i < length; i++){
-        var randomIndex = Math.floor(Math.random() * allowedChars.length);
-        password += allowedChars[randomIndex];
+
+
+    // break apart allowedCharacters string into an array
+    allowedChars = allowedChars.split("")
+    console.log(allowedChars, length)
+
+    // take paswordLength answer and run for loop that many times
+    for (let i = 0; i < length; i++) {
+        // grab random index number based on current length of allowCharacters array
+        var randomIndex = Math.floor(Math.random() * allowedChars.length);  
+
+        // use randomIndex as index number in allowedCharacters array, convert to true value, add value to end of password
+        password = password + allowedChars[randomIndex];
     }
 
+    passwordText.value = password;
     return password;
 }
-
-var passwordLength = 12;
-var includeLowercase = true;
-var includeUppercase = true;
-var includeNumbers = true;
-var includeSymbols = true;
-
-var password = writePassword(passwordLength,   
-                               includeLowercase, 
-                               includeUppercase,
-                               includeNumbers,
-                               includeSymbols); 
-
 
 
 console.log("Write passord: {password}");
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+
+
 
